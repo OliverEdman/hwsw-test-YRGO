@@ -1,6 +1,8 @@
 /**
  * @file GPIO driver interface.
+ * 
  */
+
 #pragma once
 
 namespace driver::gpio
