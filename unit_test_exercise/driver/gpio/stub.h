@@ -1,34 +1,59 @@
+/**
+ * @file GPIO stub driver.
+ */
 #pragma once
 
-#include "interface.h"
+#include "driver/gpio/interface.h"
 
 namespace driver::gpio
 {
-
-class Stub final : public Interface 
+/**
+ * @brief GPIO stub driver.
+ */
+class Stub final : public Interface
 {
-public: 
+public:
+    /**
+     *
+     * @brief Constructor.
+     *
+     * @param[in] initialState Initial GPIO state (default = false).
+     */
+    explicit Stub(const bool initialState = false) noexcept
+        : myState{initialState}
+    {}
 
-~Stub() noexcept override = default;
+    /**
+     * @brief Destructor.
+     */
+    ~Stub() noexcept override = default;
 
-explicit Stub(bool initial_state = false) noexcept;
+    /**
+     * @brief Get GPIO state.
+     *
+     * @return True if enabled, false if disabled.
+     */
+    [[nodiscard]] bool read() const noexcept override { return myState; }
 
-bool write (bool high) noexcept override;
+    /**
+     * @brief Set GPIO state.
+     *
+     * @param[in] state New state (true = enabled, false = disabled).
+     */
+    void write(const bool state) noexcept override { myState = state; }
 
-[[nodiscard]] bool read() const noexcept override;
+    /**
+     * @brief Toggle GPIO state.
+     */
+    void toggle() noexcept override { myState = !myState; }
 
-void toggle() noexcept override;
- 
-    // Stäng av kopiering och flytt
-    Stub(const Stub&) = delete;
-    Stub& operator=(const Stub&) = delete;
-    Stub(Stub&&) = delete;
-    Stub& operator=(Stub&&) = delete;
+    Stub(const Stub&)            = delete; // No copy constructor.
+    Stub(Stub&&)                 = delete; // No move constructor.
+    Stub& operator=(const Stub&) = delete; // No copy assignment.
+    Stub& operator=(Stub&&)      = delete; // No move assignment.
 
-private: 
-
-bool my_state = false;
-
-
+private:
+    /** GPIO state (true = enabled, false = disabled). */
+    bool myState;
 };
 } // namespace driver::gpio
