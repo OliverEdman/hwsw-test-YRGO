@@ -2,40 +2,33 @@
 
 #include "interface.h"
 
-namespace driver::gpio 
+namespace driver::gpio
 {
-    class Stub final : Interface
-    {
-        private:
-        bool my_state;
-        
-        public:
-            explicit Stub (bool initial_state = false) noexcept
 
-            : my_state(initial_state)
-            {}
+class Stub final : public Interface 
+{
+public: 
 
-            ~Stub() noexcept override = default;
-            
-            // No copy move operators.
-            Stub(const Stub&)               = delete;
-            Stub& operator=(const Stub&)    = delete;
-            Stub(Stub&&)                    = delete;
-            Stub& operator=(Stub&&)         = delete;
+~Stub() noexcept override = default;
 
-            void write(bool high) noexcept override
-            {
-                my_state = high;
-            }
+explicit Stub(bool initial_state = false) noexcept;
 
-            [[nodiscard]] bool read() const noexcept override 
-            {
-                return my_state;
-            }
-            void toggle() noexcept override
-            {
-                my_state = !my_state;
-            }
-    }; 
+bool write (bool high) noexcept override;
 
+[[nodiscard]] bool read() const noexcept override;
+
+void toggle() noexcept override;
+ 
+    // Stäng av kopiering och flytt
+    Stub(const Stub&) = delete;
+    Stub& operator=(const Stub&) = delete;
+    Stub(Stub&&) = delete;
+    Stub& operator=(Stub&&) = delete;
+
+private: 
+
+bool my_state = false;
+
+
+};
 } // namespace driver::gpio
