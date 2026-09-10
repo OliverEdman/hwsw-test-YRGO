@@ -161,12 +161,37 @@ TEST(Gpio_Atmega328p, Initialization)
     // Systematically test GPIO initialization across a range of pin numbers.
     for (std::uint8_t pin{}; pin < pinMax; ++pin)
     {
-        // Create a new GPIO instance with the current pin number, use any valid mode.
+        // Create a new GPIO instance with the current pin number
+        driver::gpio::Atmega328p gpio{pin, driver::gpio::Mode::Output};
 
-        // Expect the instance to be initialized correctly if the pin is valid.
+        if (pin < PinCount)
+        {
+            // Expect the instance to be initialized correctly if the pin is valid
+            EXPECT_TRUE(gpio.isInitialized());
 
-        // Create another GPIO instance on the same pin.
-        // Expect the instance to not be initialized, since the pin is already reserved.
+            // Create another GPIO instance on the same pin.
+            driver::gpio::Atmega328p Gpio1{pin, driver::gpio::Mode::Output};
+
+            
+            // Denna retunerar TRUE just nu men vi vill retunera false bugg i driver???
+            // Expect the instance to not be initialized, since the pin is already reserved.
+
+            /**
+             * 
+             * IsInitalized() sätts till true nu om vi skapar ett objekt på en pinne
+             * När jag skapar en till instans (Gpio1) på samma pinne så lyckades det
+             * vilket är vilket dumt eftersom vi vill bara ha en instans per pinne annars
+             * kanske ena isntansen säötter pinnen hög och andra isntansen låg? big no no 
+             * 
+             * Lösning: lägg till i driver en kontroll att bara en instans per pinne
+             */
+            EXPECT_FALSE(Gpio1.isInitialized());
+        }
+        else
+        {
+            // Invalid pins should not be initialized
+            EXPECT_FALSE(gpio.isInitialized());
+        }
     }
 }
 
