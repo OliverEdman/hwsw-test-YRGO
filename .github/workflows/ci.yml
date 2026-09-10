@@ -11,16 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install build tools
+      - name: Install build tools and clang-format
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential
+          sudo apt-get install -y build-essential clang-format
+
+      - name: Check Code Formatting
+        run: |
+          # Sök igenom projektet efter .cpp- och .h-filer och verifiera stilen
+          find . -name "*.cpp" -o -name "*.h" | xargs clang-format --dry-run --Werror
 
       - name: Run ATmega Test Suite
         run: |

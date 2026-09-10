@@ -8,10 +8,6 @@
 #include "utils/utils.h"
 #include "yrgo/test/test.h"
 
-#ifdef TESTSUITE
-
-//! @todo Remove this #ifdef in lecture 2 to enable these tests.
-#ifdef LECTURE2
 
 namespace driver
 {
@@ -265,7 +261,3 @@ TEST(Gpio_Atmega328p, InputPullup)
 } // namespace
 } // namespace driver
 
-//! @todo Remove this #endif in lecture 2 to enable these tests.
-#endif /** LECTURE2 */
-
-#endif /** TESTSUITE */
