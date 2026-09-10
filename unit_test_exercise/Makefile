@@ -16,7 +16,7 @@ CXX_COMPILER = g++
 # C++ compiler flags.
 CXX_FLAGS = -std=c++17 -Werror -Wall -I. -I$(YRGO_TEST_DIR)/include
 
-.PHONY: default build run clean
+.PHONY: default build run clean format
 
 # Build and run the test suite as default:
 default: build run
@@ -32,6 +32,12 @@ build: $(YRGO_TEST_LIB)
 # Run the test suite.
 run: build
 	@./$(TARGET)
+
+# Format all C++ and header files in the project root.
+format:
+	@ROOT_DIR=$$(git rev-parse --show-toplevel); \
+	find "$$ROOT_DIR" -name "*.cpp" -o -name "*.h" | xargs clang-format -i
+	@git status -s
 
 # Clean the test suite and the yrgo::test library.
 clean:
