@@ -172,17 +172,16 @@ TEST(Gpio_Atmega328p, Initialization)
             // Create another GPIO instance on the same pin.
             driver::gpio::Atmega328p Gpio1{pin, driver::gpio::Mode::Output};
 
-            
             // Denna retunerar TRUE just nu men vi vill retunera false bugg i driver???
             // Expect the instance to not be initialized, since the pin is already reserved.
 
             /**
-             * 
+             *
              * IsInitalized() sätts till true nu om vi skapar ett objekt på en pinne
              * När jag skapar en till instans (Gpio1) på samma pinne så lyckades det
              * vilket är vilket dumt eftersom vi vill bara ha en instans per pinne annars
-             * kanske ena isntansen säötter pinnen hög och andra isntansen låg? big no no 
-             * 
+             * kanske ena isntansen säötter pinnen hög och andra isntansen låg? big no no
+             *
              * Lösning: lägg till i driver en kontroll att bara en instans per pinne
              */
             EXPECT_FALSE(Gpio1.isInitialized());
