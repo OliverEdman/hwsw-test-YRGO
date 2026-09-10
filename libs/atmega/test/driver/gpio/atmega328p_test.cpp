@@ -8,7 +8,6 @@
 #include "utils/utils.h"
 #include "yrgo/test/test.h"
 
-
 namespace driver
 {
 namespace
@@ -260,4 +259,3 @@ TEST(Gpio_Atmega328p, InputPullup)
 }
 } // namespace
 } // namespace driver
-

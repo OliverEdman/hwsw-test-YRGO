@@ -1,6 +1,6 @@
 /**
  * @file GPIO driver interface.
- * 
+ *
  */
 
 #pragma once

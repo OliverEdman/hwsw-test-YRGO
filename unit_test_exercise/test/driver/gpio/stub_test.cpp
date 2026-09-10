@@ -57,8 +57,4 @@ TEST(GpioStub, toggle)
     // Om vi togglar igen testar vi (1 -> 0)
     led1.toggle();
     EXPECT_FALSE(led1.read());
-
 }
-
-
-

@@ -2,12 +2,11 @@
 
 #include <cstdint>
 
-namespace driver::timer 
+namespace driver::timer
 {
 class Interface
 {
 public:
-
     // Destruktor
     virtual ~Interface() noexcept = default;
 
@@ -20,19 +19,18 @@ public:
     // startar timern
     virtual void start() noexcept = 0;
 
-    //stoppar timern.
+    // stoppar timern.
     virtual void stop() noexcept = 0;
 
     // Växlar mellan igång och stoppad.
     virtual void toggle() noexcept = 0;
 
-    //räknar upp timern ett steg, motsvarande 1 ms.
+    // räknar upp timern ett steg, motsvarande 1 ms.
     virtual void tick() noexcept = 0;
 
-    //returnerar true om timern har timat ut.
+    // returnerar true om timern har timat ut.
     [[nodiscard]] virtual bool hasTimedOut() const noexcept = 0;
 
     // 3 av dessa ska bara läsa tillstånd därav const samt nodiscard
-
 };
-}// namespace driver::timer
+} // namespace driver::timer
