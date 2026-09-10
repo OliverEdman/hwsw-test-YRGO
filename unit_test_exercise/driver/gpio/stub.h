@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#include "driver/gpio/interface.h"
+#include "interface.h"
 
 namespace driver::gpio
 {
